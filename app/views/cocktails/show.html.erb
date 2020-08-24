@@ -1,9 +1,13 @@
 <div class="container">
+  <br>
   <h1><%= @cocktail.name %></h1>
-   <%= link_to "Back to all mocktails", root_path %>
+  <% if @cocktail.photo.attached?  %>
+  <%= cl_image_tag @cocktail.photo.key, alt: "mocktail", height: 300, width: 200, crop: :fill %>
+  <% end %>
    <div class="row">
      <div class="col-sm-12 col-md-6">
-      <h2>See Recipe</h2>
+      <br>
+      <h3>See Recipe</h3>
       <table class="table table-bordered">
         <tbody>
           <thead>
@@ -24,6 +28,16 @@
     <% end %>
     </tbody>
    </table>
+      <br>
+      <h3>Add ingredients</h3>
+      <%= simple_form_for [ @cocktail, @dose] do |f| %>
+        <%= f.association :ingredient %>
+        <%= f.input :description %>
+
+        <%= f.button :submit, class: "btn btn-success" %>
+        <% end %>
+       <br>
+       <%= link_to "Back to all mocktails", cocktails_path %>
   </div>
  </div>
 </div>
